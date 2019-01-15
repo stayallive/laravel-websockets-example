@@ -49,13 +49,14 @@ import Echo from 'laravel-echo'
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
-    broadcaster:  'pusher',
-    key:          window.PUSHER_APP_KEY,
-    wsHost:       window.location.hostname,
-    wsPort:       window.APP_DEBUG ? 6001 : 6000,
-    wssPort:      window.APP_DEBUG ? 6001 : 6000,
-    disableStats: true,
-    encrypted:    !window.APP_DEBUG
+    broadcaster:       'pusher',
+    key:               window.PUSHER_APP_KEY,
+    wsHost:            window.location.hostname,
+    wsPort:            window.APP_DEBUG ? 6001 : 6000,
+    wssPort:           window.APP_DEBUG ? 6001 : 6000,
+    disableStats:      true,
+    encrypted:         !window.APP_DEBUG,
+    enabledTransports: ['ws', 'wss'],
 });
 
 var onlineUsers = 0;
