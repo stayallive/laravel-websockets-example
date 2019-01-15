@@ -52,8 +52,8 @@ window.Echo = new Echo({
     broadcaster:  'pusher',
     key:          window.PUSHER_APP_KEY,
     wsHost:       window.location.hostname,
-    wsPort:       6001,
-    wssPort:      6001,
+    wsPort:       window.APP_DEBUG ? 6001 : 6000,
+    wssPort:      window.APP_DEBUG ? 6001 : 6000,
     disableStats: true,
     encrypted:    !window.APP_DEBUG
 });
