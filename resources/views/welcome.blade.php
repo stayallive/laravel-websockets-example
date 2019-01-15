@@ -8,6 +8,7 @@
         <title>Laravel Websockets Installation on Forge</title>
 
         <script>window.PUSHER_APP_KEY = '{{ config('broadcasting.connections.pusher.key') }}';</script>
+        <script>window.APP_DEBUG = {{ config('app.debug') ? 'true' : 'false' }};</script>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">

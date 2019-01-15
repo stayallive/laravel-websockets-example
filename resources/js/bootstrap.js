@@ -1,4 +1,3 @@
-
 window._ = require('lodash');
 
 /**
@@ -9,10 +8,11 @@ window._ = require('lodash');
 
 try {
     window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+    window.$      = window.jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -49,11 +49,34 @@ import Echo from 'laravel-echo'
 window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: window.PUSHER_APP_KEY,
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    wssPort: 6001,
+    broadcaster:  'pusher',
+    key:          window.PUSHER_APP_KEY,
+    wsHost:       window.location.hostname,
+    wsPort:       6001,
+    wssPort:      6001,
     disableStats: true,
-    encrypted: true
+    encrypted:    !window.APP_DEBUG
 });
+
+var onlineUsers = 0;
+
+function update_online_counter() {
+    jQuery('#online').text(onlineUsers);
+}
+
+window.Echo.join('common_room')
+    .here((users) => {
+        onlineUsers = users.length;
+
+        update_online_counter();
+    })
+    .joining((user) => {
+        onlineUsers++;
+
+        update_online_counter();
+    })
+    .leaving((user) => {
+        onlineUsers--;
+
+        update_online_counter();
+    });
